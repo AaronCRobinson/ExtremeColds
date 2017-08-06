@@ -18,6 +18,7 @@ namespace ExtremeColds
         public void StartedNewGame()
         {
             settings.currentVersion = settings.selectedVersion;
+            versionNumber = settings.selectedVersion;
         }
 
         public void StartedLoadGame()
