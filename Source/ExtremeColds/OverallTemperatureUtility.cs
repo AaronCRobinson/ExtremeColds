@@ -124,11 +124,9 @@ namespace ExtremeColds
     // NOTE: couldn't get calls to work when calling Func directly, so using this helper
     public static class GetTemperatureCurve_DynamicFunctionHelper
     {
-        public static ExtremeColdsSettings settings;
-
         public static SimpleCurve GetTemperatureCurveHelper(OverallTemperature overallTemperature)
         {
-            return OverallTemperatureUtility.GetTemperatureCurve(settings.currentVersion, overallTemperature);
+            return OverallTemperatureUtility.GetTemperatureCurve(ExtremeColdsMod.settings.currentVersion, overallTemperature);
         }       
     }
 

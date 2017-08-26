@@ -10,7 +10,7 @@ namespace ExtremeColds
         public int currentVersion; // sometimes need to force version without selection
         public int selectedVersion;
 
-        public ExtremeColdsSettings() { selectedVersion = currentVersion = currentRelease; }
+        public ExtremeColdsSettings() { this.selectedVersion = this.currentVersion = currentRelease; }
 
         public int CurrentRelease
         {
@@ -20,19 +20,17 @@ namespace ExtremeColds
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look(ref selectedVersion, "versionNumber");
+            Scribe_Values.Look(ref this.selectedVersion, "versionNumber");
         }
     }
 
     class ExtremeColdsMod : Mod
     {
-        ExtremeColdsSettings settings;
+        public static ExtremeColdsSettings settings;
 
         public ExtremeColdsMod(ModContentPack content) : base(content)
         {
             settings = GetSettings<ExtremeColdsSettings>();
-            WorldGenStepComponent.settings = settings;
-            GetTemperatureCurve_DynamicFunctionHelper.settings = settings;
         }
 
         public override string SettingsCategory() => "ExtremeColds";
@@ -40,7 +38,7 @@ namespace ExtremeColds
         public override void DoSettingsWindowContents(Rect inRect)
         {
             DrawVersionNumberSelection(inRect);
-            this.settings.Write();
+            settings.Write();
         }
 
         private void DrawVersionNumberSelection(Rect rect)

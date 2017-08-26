@@ -7,7 +7,7 @@ namespace ExtremeColds
     // Abstract this later.
     public class WorldGenStepComponent : IExposable
     {
-        public static ExtremeColdsSettings settings;
+        //public static ExtremeColdsSettings settings;
         int versionNumber; // this is the version used for this given world (instance)
 
         public void ExposeData()
@@ -17,20 +17,20 @@ namespace ExtremeColds
 
         public void StartedNewGame()
         {
-            settings.currentVersion = settings.selectedVersion;
-            versionNumber = settings.selectedVersion;
+            ExtremeColdsMod.settings.currentVersion = ExtremeColdsMod.settings.selectedVersion;
+            this.versionNumber = ExtremeColdsMod.settings.selectedVersion;
         }
 
         public void StartedLoadGame()
         {
-            settings.currentVersion = settings.selectedVersion;
-            if (versionNumber != settings.CurrentRelease) 
+            ExtremeColdsMod.settings.currentVersion = ExtremeColdsMod.settings.selectedVersion;
+            if (this.versionNumber != ExtremeColdsMod.settings.CurrentRelease) 
             {
                 Log.Message("Older version detected: " + versionNumber);
-                if (versionNumber != settings.selectedVersion)
+                if (this.versionNumber != ExtremeColdsMod.settings.selectedVersion)
                 {
-                    Log.Message($"Discrepancy between saved version and selected.\nSelected: {settings.selectedVersion}\nSaved: {versionNumber}\nDefauling to saved value.");
-                    settings.currentVersion = versionNumber;
+                    Log.Message($"Discrepancy between saved version and selected.\nSelected: {ExtremeColdsMod.settings.selectedVersion}\nSaved: {this.versionNumber}\nDefauling to saved value.");
+                    ExtremeColdsMod.settings.currentVersion = this.versionNumber;
                 }
             }
         }
