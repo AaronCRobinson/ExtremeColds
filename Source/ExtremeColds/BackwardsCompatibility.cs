@@ -10,9 +10,14 @@ namespace ExtremeColds
         //public static ExtremeColdsSettings settings;
         int versionNumber; // this is the version used for this given world (instance)
 
+        public WorldGenStepComponent() { }
+
+        public WorldGenStepComponent(LookMode mode, object[] ctorArgs) { }
+
         public void ExposeData()
         {
-            Scribe_Values.Look<int>(ref this.versionNumber, "versionNumber", 0, false);
+            Scribe_Values.Look<int>(ref this.versionNumber, "versionNumber", 0, true);
+            Log.Message(this.versionNumber.ToString());
         }
 
         public void StartedNewGame()
@@ -64,6 +69,7 @@ namespace ExtremeColds
             HarmonyInstance harmony = HarmonyInstance.Create("rimworld.whyisthat.extremecolds.backwardscompatibility");
 
             harmony.Patch(AccessTools.Method(typeof(Game), nameof(Game.ExposeData)), null, new HarmonyMethod(typeof(BackwardsCompatibilityPatches), nameof(ExposeData)));
+            harmony.Patch(AccessTools.Method(typeof(World), nameof(World.ExposeData)), new HarmonyMethod(typeof(BackwardsCompatibilityPatches), nameof(ExposeData)), null);
 
             harmony.Patch(AccessTools.Method(typeof(WorldGenStep_Terrain), nameof(WorldGenStep_Terrain.GenerateFresh)), new HarmonyMethod(typeof(BackwardsCompatibilityPatches), nameof(StartedNewGame)), null);
             harmony.Patch(AccessTools.Method(typeof(WorldGenStep_Terrain), nameof(WorldGenStep_Terrain.GenerateFromScribe)), new HarmonyMethod(typeof(BackwardsCompatibilityPatches), nameof(StartedLoadGame)), null);

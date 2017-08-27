@@ -51,7 +51,7 @@ namespace ExtremeColds
                 radioValues.Add(i.ToString(), i);
             }
             ModWindowHelper.Reset();
-            ModWindowHelper.MakeLabel(rect.width - 64f, "The folowing radio values are allowed to set the current version of the Extreme Colds world generation. ");
+            ModWindowHelper.MakeLabel(rect.width - 64f, "The following radio values are allowed to set the current version of the Extreme Colds world generation. ");
             ModWindowHelper.MakeLabeledRadioList<int>(rect, radioValues, ref settings.selectedVersion);
             ModWindowHelper.MakeLabel(rect.width - 64f, "NOTE: These values are only used during a new game. The value saved with the world will be used during load.");
             GUI.EndGroup();
