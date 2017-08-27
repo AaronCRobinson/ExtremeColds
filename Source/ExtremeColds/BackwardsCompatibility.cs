@@ -17,7 +17,6 @@ namespace ExtremeColds
         public void ExposeData()
         {
             Scribe_Values.Look<int>(ref this.versionNumber, "versionNumber", 0, true);
-            Log.Message(this.versionNumber.ToString());
         }
 
         public void StartedNewGame()
@@ -57,7 +56,8 @@ namespace ExtremeColds
 
         public static void StartedLoadGame()
         {
-            wgsc.StartedLoadGame();
+            // NOTE: sometimes null...
+            wgsc?.StartedLoadGame();
         }
     }
 
