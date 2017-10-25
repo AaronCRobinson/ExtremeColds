@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-	<name>Extreme Colds</name>
-	<author>Why_is_that</author>
-	<url></url>
-	<targetVersion>0.17.0</targetVersion>
-	<description>
-Small mod which may be part of a larger work later. Edits the extreme cold environment to be a playable ice planet. 
-	</description>
+    <name>Extreme Colds</name>
+    <author>Why_is_that</author>
+    <url>https://github.com/AaronCRobinson/ExtremeColds</url>
+    <targetVersion>0.18.0</targetVersion>
+    <description>
+        Edits the extreme cold environment to be a playable ice planet.
+    </description>
 </ModMetaData>
