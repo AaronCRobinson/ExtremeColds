@@ -1,6 +1,7 @@
 ﻿using Verse;
 using UnityEngine;
 using System.Collections.Generic;
+using SettingsHelper;
 
 namespace ExtremeColds
 {
@@ -28,9 +29,16 @@ namespace ExtremeColds
     {
         public static ExtremeColdsSettings settings;
 
+        private Dictionary<string, int> radioValues;
+
         public ExtremeColdsMod(ModContentPack content) : base(content)
         {
             settings = GetSettings<ExtremeColdsSettings>();
+
+            // TODO: find a better way to handle these radios...
+            this.radioValues = new Dictionary<string, int>();
+            for (int i = 0; i <= settings.CurrentRelease; i++)
+                this.radioValues.Add(i.ToString(), i);
         }
 
         public override string SettingsCategory() => "ExtremeColds";
@@ -42,19 +50,13 @@ namespace ExtremeColds
         }
 
         private void DrawVersionNumberSelection(Rect rect)
-        { 
-            GUI.BeginGroup(rect);
-            // NOTE: consider providing more detail on each version
-            Dictionary<string, int> radioValues = new Dictionary<string, int>();
-            for(int i = 0; i <= settings.CurrentRelease; i++)
-            {
-                radioValues.Add(i.ToString(), i);
-            }
-            ModWindowHelper.Reset();
-            ModWindowHelper.MakeLabel(rect.width - 64f, "The following radio values are allowed to set the current version of the Extreme Colds world generation. ");
-            ModWindowHelper.MakeLabeledRadioList<int>(rect, radioValues, ref settings.selectedVersion);
-            ModWindowHelper.MakeLabel(rect.width - 64f, "NOTE: These values are only used during a new game. The value saved with the world will be used during load.");
-            GUI.EndGroup();
+        {
+            Listing_Standard listing = new Listing_Standard();
+            listing.Begin(rect);
+            listing.AddLabeledRadioList<int>("The following radio values are allowed to set the current version of the Extreme Colds world generation.", this.radioValues, ref settings.selectedVersion);
+            listing.AddLabelLine("NOTE: These values are only used during a new game. The value saved with the world will be used during load.");
+            listing.End();
+            settings.Write();
         }
     }
 
